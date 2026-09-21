@@ -1,0 +1,42 @@
+
+create table departement (
+	NumDept varchar(6) primary key,
+	Apellation varchar(6),
+	constraint apel_ck check (Apellation in ('BIO' , 'SCENV' , 'N-TECH'))
+);
+
+create table employe (
+	Matricule varchar(6) primary key,
+	Nom varchar(20) not null,
+	Prenom varchar(20) not null,
+	Date_N date,
+	Depart varchar(6),
+	Adresse varchar(10),
+	sal_brut int,
+	charge_sociale int default 0,
+	prime int default 0,
+	retenue int default 0,
+	constraint depart_fk foreign key (Depart) references departement (NumDept) ,
+	constraint adresse_ck check (Adresse in ('Paris', 'Rennes', 'Marseille', 'Lyon', 'Strasbourg', 'Bordeaux', 'Lille', 'Toulouse', 'Toulon')),
+	constraint salaire_ck check (sal_brut > 1000)
+);
+
+create table Projet (
+	Numero varchar(4) primary key,
+	Designation varchar(10),
+	Budget int,
+	date_debut date,
+	date_fin date,
+	constraint date_ck check (date_debut < date_fin)
+);
+
+create table Role (
+	NumE varchar(6),
+	NumP varchar(4),
+	Role_emp varchar(20),
+	constraint role_ck check (Role_emp in ('Responsable','Ingénieur','Technicien')),
+	constraint role_pk primary key (NumE,NumP),
+	constraint numE_fk foreign key (NumE) references employe (Matricule),
+	constraint numP_fk foreign key (NumP) references Projet (Numero)
+);
+
