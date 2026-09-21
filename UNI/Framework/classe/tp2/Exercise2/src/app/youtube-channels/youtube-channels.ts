@@ -31,20 +31,17 @@ export class YoutubeChannels {
     },
   ];
 
-  ajouterAbonne(x: number) {
+  ajouterAbonne(x: number, y: any) {
     this.channels[x].nbSubsribers++;
+    y.disabled = true;
   }
   calculNb(nb: string) {
     let s = 0;
     let x = Number(nb);
-    if (this.channels[0].nbSubsribers >= x) {
-      s++;
-    }
-    if (this.channels[1].nbSubsribers >= x) {
-      s++;
-    }
-    if (this.channels[2].nbSubsribers >= x) {
-      s++;
+    for (let i = 0; i < this.channels.length; i++) {
+      if (this.channels[i].nbSubsribers >= x) {
+        s++;
+      }
     }
     alert('le nombre de chaines ayant plus que ' + x + ' abonnés est : ' + s);
   }

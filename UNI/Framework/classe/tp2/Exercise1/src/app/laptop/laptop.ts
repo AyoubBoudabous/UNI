@@ -17,7 +17,7 @@ export class Laptop {
     image: 'Images_TP2/laptop.jpg',
     availability: true,
   };
-  get gamme(): boolean {
+  gamme(): boolean {
     return this.pc.price <= 2000;
   }
   alerter() {

@@ -1,10 +1,10 @@
-<h1>Description du ThinkBook 16 G0 IRL</h1>
+<h1>{{ pc.model }}</h1>
 <img [src]="pc.image" alt="" />
 <ul>
   <li>Marque {{ pc.brand }}</li>
   <li>
-    Gamme : <input type="radio" disabled [checked]="gamme" /> Bas de Gamme
-    <input type="radio" name="" id="" disabled [checked]="!gamme" /> Haut de Gamme
+    Gamme : <input type="radio" disabled [checked]="gamme()" /> Bas de Gamme
+    <input type="radio" name="" id="" disabled [checked]="!gamme()" /> Haut de Gamme
   </li>
   <li>Prix (DT):<input type="text" [(ngModel)]="pc.price" /> {{ gamme }}</li>
   <li>Disponilité: <input type="checkbox" name="" id="" [checked]="pc.availability" disabled /></li>

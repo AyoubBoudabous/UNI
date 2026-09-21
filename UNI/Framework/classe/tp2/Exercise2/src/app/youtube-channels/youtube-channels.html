@@ -8,7 +8,7 @@
   {{ channels[0].link }}
   <pre style="font-style: bold"> Nombre d'abonnés :</pre>
   {{ channels[0].nbSubsribers }}
-  <button (click)="ajouterAbonne(0)">S'abonner</button>
+  <button (click)="ajouterAbonne(0, btn1)" #btn1>S'abonner</button>
 </div>
 <div>
   <img [src]="channels[1].picture" alt="" />
@@ -19,7 +19,7 @@
   {{ channels[1].link }}
   <pre style="font-style: bold"> Nombre d'abonnés :</pre>
   {{ channels[1].nbSubsribers }}
-  <button (click)="ajouterAbonne(1)">S'abonner</button>
+  <button (click)="ajouterAbonne(1, btn2)" #btn2>S'abonner</button>
 </div>
 <div>
   <img [src]="channels[2].picture" alt="" />
@@ -30,7 +30,7 @@
   {{ channels[2].link }}
   <pre style="font-style: bold"> Nombre d'abonnés :</pre>
   {{ channels[2].nbSubsribers }}
-  <button (click)="ajouterAbonne(2)">S'abonner</button>
+  <button (click)="ajouterAbonne(2, btn3)" #btn3>S'abonner</button>
 </div>
 Donnez le nombre d'abonnés minimal <input type="text" #nb />
 <button (click)="calculNb(nb.value)">Nombre de chaînes</button>
