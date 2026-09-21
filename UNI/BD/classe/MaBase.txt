@@ -1,6 +1,6 @@
 
 create table departement (
-	NumDept varchar(6) primary key,
+	NumDept char(6) primary key,
 	Apellation varchar(6),
 	constraint apel_ck check (Apellation in ('BIO' , 'SCENV' , 'N-TECH'))
 );
@@ -16,7 +16,7 @@ create table employe (
 	charge_sociale int default 0,
 	prime int default 0,
 	retenue int default 0,
-	constraint depart_fk foreign key (Depart) references departement (NumDept) ,
+	constraint depart_fk foreign key (Depart) references departement (NumDept) on delete cascade ,
 	constraint adresse_ck check (Adresse in ('Paris', 'Rennes', 'Marseille', 'Lyon', 'Strasbourg', 'Bordeaux', 'Lille', 'Toulouse', 'Toulon')),
 	constraint salaire_ck check (sal_brut > 1000)
 );
@@ -36,7 +36,10 @@ create table Role (
 	Role_emp varchar(20),
 	constraint role_ck check (Role_emp in ('Responsable','Ingénieur','Technicien')),
 	constraint role_pk primary key (NumE,NumP),
-	constraint numE_fk foreign key (NumE) references employe (Matricule),
-	constraint numP_fk foreign key (NumP) references Projet (Numero)
+	constraint numE_fk foreign key (NumE) references employe (Matricule) on delete cascade ,
+	constraint numP_fk foreign key (NumP) references Projet (Numero) on delete cascade 
 );
 
+-- concat (||)  
+-- select ascii("é") from dual;
+-- chr(ascii("é")) = "é";
