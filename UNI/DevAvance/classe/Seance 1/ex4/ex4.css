@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+}
+
+div {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  border-radius: 12px;
+  color: #1f2937;
+}
+
+.api-web {
+  background: radial-gradient(#ffffff, orange);
+}
+
+.api-tierce {
+  background: linear-gradient(#ffffff, blue);
+}

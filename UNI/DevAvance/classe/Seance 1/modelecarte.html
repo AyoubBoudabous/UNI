@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Boutique de posters</title>
+    <style>
+      :root {
+        --couleur-fond: #f5f1eb;
+        --couleur-surface: #ffffff;
+        --couleur-texte: #242424;
+        --couleur-secondaire: #6d6d6d;
+        --couleur-primaire: #c9574f;
+        --couleur-primaire-hover: #a8423c;
+        --police: Arial, sans-serif;
+        --espacement: 20px;
+        --rayon: 8px;
+        --transition: 0.25s ease;
+        --ombre: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        padding: var(--espacement);
+        font-family: var(--police);
+        color: var(--couleur-texte);
+        background: var(--couleur-fond);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .grille-cartes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: var(--espacement);
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .carte {
+        position: relative;
+        height: 380px;
+        overflow: hidden;
+        background: var(--couleur-surface);
+        border-radius: var(--rayon);
+        box-shadow: var(--ombre);
+        opacity: 0;
+        animation-duration: 0.9s;
+        animation-timing-function: ease;
+        animation-fill-mode: forwards;
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+
+      .carte:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16);
+      }
+
+      .carte:nth-child(2) {
+        animation-name: apparition-gauche;
+        animation-delay: 0.15s;
+      }
+
+      .carte:nth-child(3) {
+        animation-name: apparition-droite;
+        animation-delay: 0.3s;
+      }
+
+      .carte:nth-child(1) {
+        animation-name: apparition-bas;
+      }
+
+      .carte:nth-child(1):hover {
+        transform: translateY(-8px) rotate(-1deg);
+      }
+
+      .carte:nth-child(2):hover {
+        transform: translateY(-4px) scale(1.03);
+      }
+
+      .carte:nth-child(3):hover {
+        transform: translateY(-8px) rotate(1deg);
+      }
+
+      .carte img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition:
+          transform var(--transition),
+          filter var(--transition);
+      }
+
+      .carte:nth-child(1) img {
+        filter: grayscale(100%);
+      }
+
+      .carte:nth-child(1):hover img {
+        transform: scale(1.2) rotate(8deg);
+        filter: grayscale(0%);
+      }
+
+      .carte:nth-child(2):hover img {
+        transform: scale(1.15) skew(-8deg, 4deg) translateX(12px);
+      }
+
+      .carte:nth-child(3):hover img {
+        transform: scale(1.25) rotate(-12deg) translateY(-10px);
+      }
+
+      .contenu {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: var(--espacement);
+        opacity: 0;
+        background: rgba(255, 255, 255, 0.94);
+        transform: translateY(100%);
+        transition:
+          opacity var(--transition),
+          transform var(--transition);
+      }
+
+      .carte:hover .contenu {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 8px;
+        margin-bottom: 10px;
+        border-radius: var(--rayon);
+        color: var(--couleur-primaire-hover);
+        background: #f3d9d5;
+        font-size: 12px;
+      }
+
+      .contenu h2 {
+        margin-bottom: 15px;
+        font-size: 20px;
+      }
+
+      .prix {
+        margin-bottom: 15px;
+        color: var(--couleur-secondaire);
+      }
+
+      .bouton {
+        display: inline-block;
+        padding: 9px 14px;
+        border-radius: var(--rayon);
+        color: #ffffff;
+        background: var(--couleur-primaire);
+        text-decoration: none;
+        transition: background var(--transition);
+      }
+
+      .bouton:hover {
+        background: var(--couleur-primaire-hover);
+      }
+
+      @keyframes apparition-bas {
+        from {
+          opacity: 0;
+          transform: translateY(70px) scale(0.85);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes apparition-gauche {
+        from {
+          opacity: 0;
+          transform: translateX(-70px) rotate(-7deg);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0) rotate(0);
+        }
+      }
+
+      @keyframes apparition-droite {
+        from {
+          opacity: 0;
+          transform: translateX(70px) scale(0.75) rotate(5deg);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Boutique de posters</h1>
+
+    <div class="grille-cartes">
+      <div class="carte">
+        <img src="images/poster1.jpg" alt="fleurs" />
+        <div class="contenu">
+          <span class="badge">Nouveau</span>
+          <h2>Fleurs</h2>
+          <p class="prix">25 €</p>
+          <a href="#" class="bouton">Ajouter au panier</a>
+        </div>
+      </div>
+
+      <div class="carte">
+        <img src="images/poster2.jpg" alt="iris" />
+        <div class="contenu">
+          <span class="badge">Populaire</span>
+          <h2>Iris</h2>
+          <p class="prix">18 €</p>
+          <a href="#" class="bouton">Ajouter au panier</a>
+        </div>
+      </div>
+
+      <div class="carte">
+        <img src="images/poster3.jpg" alt="fleurs2" />
+        <div class="contenu">
+          <h2>Fleurs abstraites</h2>
+          <p class="prix">22 €</p>
+          <a href="#" class="bouton">Ajouter au panier</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
