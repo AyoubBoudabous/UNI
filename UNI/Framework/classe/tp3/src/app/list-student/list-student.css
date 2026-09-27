@@ -8,3 +8,11 @@ img {
 .upper {
   text-transform: uppercase;
 }
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
