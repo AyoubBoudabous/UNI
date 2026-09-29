@@ -1,0 +1,23 @@
+<h1>{{ titre }}</h1>
+<ul>
+  <li>Nom : {{ nom }}</li>
+  <li>Age : {{ age }} ans</li>
+  <li><img [src]="photo" alt="Photo" /></li>
+  <li>
+    Carte Fidélité
+    <input type="checkbox" [checked]="fidelys" disabled />
+  </li>
+  <li>
+    Nombre de commandes : <input type="range" min="0" max="50" disabled [value]="nbCommandes" />{{
+      nbCommandes
+    }}
+  </li>
+  <input type="button" value="commander" (click)="onAjouterCommande()" />
+  <br />
+  Adresse de livraison :
+  <input type="text" #txt />
+  <button (click)="onAfficherAdresse(txt.value)">Afficher</button>
+  <br />
+  Remarque :
+  <input type="text" [(ngModel)]="remarque" />
+</ul>

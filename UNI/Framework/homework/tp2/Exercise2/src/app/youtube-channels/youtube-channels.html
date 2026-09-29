@@ -1,0 +1,36 @@
+<h1>Chaînes YouTube pour les développeurs</h1>
+<div>
+  <img [src]="channels[0].picture" alt="" />
+  <pre style="font-style: bold">Nom :</pre>
+  {{ channels[0].name }}
+  <pre style="font-style: bold"> Origine :</pre>
+  <input type="checkbox" name="" id="" disabled [checked]="channels[0].country == 'Tunisia'" /> TN
+  {{ channels[0].link }}
+  <pre style="font-style: bold"> Nombre d'abonnés :</pre>
+  {{ channels[0].nbSubsribers }}
+  <button (click)="ajouterAbonne(0)">S'abonner</button>
+</div>
+<div>
+  <img [src]="channels[1].picture" alt="" />
+  <pre style="font-style: bold">Nom :</pre>
+  {{ channels[1].name }}
+  <pre style="font-style: bold"> Origine :</pre>
+  <input type="checkbox" name="" id="" disabled [checked]="channels[1].country == 'Tunisia'" /> TN
+  {{ channels[1].link }}
+  <pre style="font-style: bold"> Nombre d'abonnés :</pre>
+  {{ channels[1].nbSubsribers }}
+  <button (click)="ajouterAbonne(1)">S'abonner</button>
+</div>
+<div>
+  <img [src]="channels[2].picture" alt="" />
+  <pre style="font-style: bold">Nom :</pre>
+  {{ channels[2].name }}
+  <pre style="font-style: bold"> Origine :</pre>
+  <input type="checkbox" name="" id="" disabled [checked]="channels[2].country == 'Tunisia'" /> TN
+  {{ channels[2].link }}
+  <pre style="font-style: bold"> Nombre d'abonnés :</pre>
+  {{ channels[2].nbSubsribers }}
+  <button (click)="ajouterAbonne(2)">S'abonner</button>
+</div>
+Donnez le nombre d'abonnés minimal <input type="text" #nb />
+<button (click)="calculNb(nb.value)">Nombre de chaînes</button>
