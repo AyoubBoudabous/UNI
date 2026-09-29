@@ -1,0 +1,32 @@
+<h1>Liste des taches a faire</h1>
+<ul>
+  @for (t of todoList; track $index; let nb = $index) {
+    <li>
+      <span
+        [class]="{
+          c1: $even,
+          c2: $odd,
+        }"
+        >{{ nb + 1 }} / {{ $count }}
+      </span>
+      {{ t.task }} -
+      <span
+        [class]="{
+          badge: true,
+          'text-bg-dark': t.state == 'not yet',
+          'text-bg-primary': t.state == 'in progress',
+          'text-bg-danger': t.state == 'done',
+        }"
+        >{{ t.state }}</span
+      >
+
+      @if (t.state != 'done') {
+        @if (t.state == 'not yet') {
+          <button (click)="inProg(t)">Commencer</button>
+        } @else {
+          <button (click)="completeTask(t)">Terminer</button>
+        }
+      }
+    </li>
+  }
+</ul>

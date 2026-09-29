@@ -1,0 +1,44 @@
+<h1>Liste des etudiants</h1>
+<div class="container">
+  <ul class="list-group">
+    @for (s of students; track $index; let nb = $index) {
+      <li
+        class="list-group-item"
+        [class]="{
+          'list-group-item-info': s.option == 'DSI',
+          'list-group-item-secondary': s.option == 'SEM',
+        }"
+      >
+        <span class="bold">Etudiant num {{ nb }} / {{ $count }}</span>
+        <img [src]="s.photo" alt="" />
+        <span class="upper">
+          {{ s.firstname }}
+          {{ s.lastname }}</span
+        >
+        - <span class="badge text-bg-secondary bold">{{ s.option }}</span> - Date de naissance :
+        {{ s.birthDate | date: 'dd/MM/yyyy' }}
+        @if (s.grade >= 10) {
+          <span class="bold">
+            <i class="bi" [class]="{ 'bi-trophy-fill': s.grade >= 16 }"></i> Moyenne :
+            {{ s.grade }}</span
+          >
+        }
+        <button class="btn btn-primary" (click)="clicked = nb">
+          <i class="bi bi-info-circle-fill"></i> info
+        </button>
+      </li>
+    }
+    <div class="sub_container">
+      @if (clicked != -1) {
+        {{ students[clicked].firstname | uppercase }} {{ students[clicked].lastname | uppercase }} -
+        originaire de {{ students[clicked].town }}
+        @if (students[clicked].scholarship) {
+          bénificie de bourse
+        } @else {
+          ne bénificie pas de bourse
+        }
+        <button class="btn btn-dark btn-sm" (click)="clicked = -1">fermer</button>
+      }
+    </div>
+  </ul>
+</div>
