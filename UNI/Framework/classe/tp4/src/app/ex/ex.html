@@ -1,0 +1,52 @@
+<div class="container cart-container">
+  <div class="topbar">
+    <h1>Panier d'achat</h1>
+    <p>{{ totalItems() }} articles(s)</p>
+  </div>
+
+  <div class="cart">
+    <ul class="list-group">
+      @for (i of items(); track $index) {
+        <li class="list-group-item cart-item">
+          <img [src]="i.photo" [alt]="i.name" />
+
+          <div class="item-details">
+            <strong>{{ i.name }}</strong>
+            <p>ID : #{{ i.id }}</p>
+            <span class="badge text-bg-warning">Prix: {{ i.price }} DT</span>
+          </div>
+
+          <div class="qty-box">
+            <button type="button" (click)="updateQuantity(i, i.quantity - 1)">-</button>
+            <span>{{ i.quantity }}</span>
+            <button type="button" (click)="updateQuantity(i, i.quantity + 1)">+</button>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-success" type="button" (click)="addItem()">
+      + Ajouter une bouteille d’eau (0.7 DT)
+    </button>
+  </div>
+
+  <div class="delete-box">
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Nom de l'article à supprimer"
+      #articleName
+    />
+    <button class="btn btn-danger" (click)="deleteItem(articleName.value)">Supprimer</button>
+  </div>
+
+  <div class="summary" [class.text-bg-warning]="totalPrice() > 100">
+    <p>prix Total des articles: {{ totalPrice() | number: '1.2' }} DT</p>
+    <p>remise: -{{ remise() | number: '1.2' }} DT</p>
+    <div class="final-price">
+      <strong>prix Final: {{ finalPrice() | number: '1.2' }} DT</strong>
+    </div>
+  </div>
+</div>
