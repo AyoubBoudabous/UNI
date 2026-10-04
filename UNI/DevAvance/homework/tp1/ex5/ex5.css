@@ -1,0 +1,68 @@
+body {
+  background-color: bisque;
+}
+.container {
+  position: relative;
+  height: 200px;
+  width: 200px;
+}
+.circle {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+.anim-1 {
+  left: 78px;
+  animation: animation-1 alternate 2s infinite ease-in;
+}
+
+@keyframes animation-1 {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 160px;
+  }
+}
+.anim-2 {
+  left: 0;
+  animation: animation-2 alternate 2s infinite ease-in;
+}
+
+@keyframes animation-2 {
+  0% {
+    top: 0;
+    left: 0;
+  }
+
+  100% {
+    top: 160px;
+    left: 160px;
+  }
+}
+.anim-3 {
+  left: 0;
+  animation: animation-3 alternate 2s infinite ease-in;
+}
+
+@keyframes animation-3 {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  33% {
+    top: 0;
+    left: 160px;
+  }
+  66% {
+    top: 160px;
+    left: 0;
+  }
+  100% {
+    top: 160px;
+    left: 160px;
+  }
+}
