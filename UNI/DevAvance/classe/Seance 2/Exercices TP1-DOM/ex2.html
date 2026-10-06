@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercice 2</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      header,
+      nav,
+      footer {
+        border: 1px solid #000;
+        padding: 10px;
+      }
+
+      header {
+        text-align: center;
+      }
+
+      nav {
+        display: none;
+        background: #f2f2f2;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav li {
+        margin: 5px 0;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      form {
+        border: 5px solid #f4a7c5;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        padding: 8px;
+      }
+
+      button {
+        width: 100%;
+        background: green;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      #passwordMessage,
+      #registerMessage,
+      #loginMessage {
+        min-height: 20px;
+        margin-top: 10px;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Authentication Page</h1>
+    </header>
+
+    <nav id="mainMenu">
+      <ul>
+        <li><a href="#">Starry Nights</a></li>
+        <li><a href="#">More Images</a></li>
+        <li><a href="#">Noisy Animals</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="forms">
+        <section>
+          <h2>inscription</h2>
+          <form id="registerForm">
+            <label for="newLogin">Name</label>
+            <input type="text" id="newLogin" name="newLogin" required />
+
+            <label for="newPassword">Password</label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              required
+            />
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+            />
+
+            <div id="passwordMessage"></div>
+            <button type="submit">Sign Up</button>
+          </form>
+          <p id="registerMessage"></p>
+        </section>
+
+        <section>
+          <h2>connexion</h2>
+          <form id="loginForm">
+            <label for="login">Username</label>
+            <input type="text" id="login" name="login" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+
+            <button type="submit">Log In</button>
+          </form>
+          <p id="loginMessage"></p>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <small>© 2026 - All rights reserved</small>
+    </footer>
+
+    <script>
+      const validUsers = [
+        { login: "admin", password: "admin123" },
+        { login: "user1", password: "password1" },
+      ];
+
+      const newPasswordInput = document.getElementById("newPassword");
+      const confirmPasswordInput = document.getElementById("confirmPassword");
+      const passwordMessage = document.getElementById("passwordMessage");
+      const registerMessage = document.getElementById("registerMessage");
+      const loginMessage = document.getElementById("loginMessage");
+      const mainMenu = document.getElementById("mainMenu");
+
+      function checkPasswordRules() {
+        const value = newPasswordInput.value;
+
+        if (value.length < 8) {
+          passwordMessage.textContent =
+            "Password must contain at least 8 characters.";
+          passwordMessage.className = "error";
+          return false;
+        }
+
+        if (!/^[A-Za-z]/.test(value)) {
+          passwordMessage.textContent = "Password must start with a letter.";
+          passwordMessage.className = "error";
+          return false;
+        }
+
+        if (
+          confirmPasswordInput.value !== "" &&
+          confirmPasswordInput.value !== value
+        ) {
+          passwordMessage.textContent = "Passwords do not match.";
+          passwordMessage.className = "error";
+          return false;
+        }
+
+        passwordMessage.textContent = "Valid password.";
+        passwordMessage.className = "success";
+        return true;
+      }
+
+      newPasswordInput.addEventListener("input", checkPasswordRules);
+      confirmPasswordInput.addEventListener("input", checkPasswordRules);
+
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const newLogin = document.getElementById("newLogin").value.trim();
+          const password = newPasswordInput.value;
+          const confirm = confirmPasswordInput.value;
+
+          if (!newLogin) {
+            registerMessage.textContent = "Please enter a name.";
+            registerMessage.className = "error";
+            return;
+          }
+
+          if (!checkPasswordRules()) {
+            registerMessage.textContent = "Please check the password rules.";
+            registerMessage.className = "error";
+            return;
+          }
+
+          if (password !== confirm) {
+            registerMessage.textContent = "Passwords do not match.";
+            registerMessage.className = "error";
+            return;
+          }
+
+          validUsers.push({ login: newLogin, password: password });
+          registerMessage.textContent = "Registration successful!";
+          registerMessage.className = "success";
+          this.reset();
+          passwordMessage.textContent = "";
+        });
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const login = document.getElementById("login").value.trim();
+          const password = document.getElementById("password").value;
+
+          const user = validUsers.find(
+            (u) => u.login === login && u.password === password,
+          );
+
+          if (user) {
+            loginMessage.textContent = "Login successful.";
+            loginMessage.className = "success";
+            mainMenu.style.display = "block";
+          } else {
+            loginMessage.textContent = "Incorrect username or password.";
+            loginMessage.className = "error";
+            mainMenu.style.display = "none";
+          }
+        });
+    </script>
+  </body>
+</html>

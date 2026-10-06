@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercice 3 - Image</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+
+      img {
+        display: block;
+        width: 500px;
+        max-width: 100%;
+        margin: 20px auto;
+        transition: opacity 1s;
+      }
+
+      button {
+        margin: 5px;
+        padding: 8px 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Nuit étoilée</h1>
+
+    <img id="imageNuit" src="../NUITETOILEE.jpeg" alt="Ciel de nuit étoilé" />
+
+    <button id="masquer">Masquer</button>
+    <button id="afficher">Afficher</button>
+    <button id="fonduSortie">Fondu disparition</button>
+    <button id="fonduEntree">Fondu apparition</button>
+
+    <script>
+      var image = document.getElementById("imageNuit");
+
+      document.getElementById("masquer").addEventListener("click", function () {
+        image.style.visibility = "hidden";
+      });
+
+      document
+        .getElementById("afficher")
+        .addEventListener("click", function () {
+          image.style.visibility = "visible";
+        });
+
+      document
+        .getElementById("fonduSortie")
+        .addEventListener("click", function () {
+          image.style.opacity = "0";
+        });
+
+      document
+        .getElementById("fonduEntree")
+        .addEventListener("click", function () {
+          image.style.opacity = "1";
+        });
+    </script>
+  </body>
+</html>

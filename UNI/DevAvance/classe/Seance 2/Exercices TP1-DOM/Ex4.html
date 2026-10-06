@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercice 4 - Galerie</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+
+      img {
+        display: block;
+        width: 600px;
+        max-width: 100%;
+        height: 350px;
+        object-fit: cover;
+        margin: 20px auto 10px;
+      }
+
+      button {
+        padding: 10px 18px;
+        margin: 5px;
+        border: none;
+        background-color: #1f4e79;
+        color: white;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #f0a500;
+        color: #222;
+      }
+
+      #texteImage {
+        display: none;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Galerie d'images</h1>
+
+    <img id="image" src="" alt="Image de la galerie" />
+    <p id="texteImage"></p>
+
+    <button id="precedent">Précédent</button>
+    <button id="suivant">Suivant</button>
+
+    <script>
+      var images = [
+        "download.jpg",
+        "NUITETOILEE.jpeg",
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+      ];
+
+      var textes = [
+        "boo",
+        "Un beau paysage naturel.",
+        "Une route au milieu de la nature.",
+      ];
+
+      var index = 0;
+      var image = document.getElementById("image");
+      var texteImage = document.getElementById("texteImage");
+
+      function afficherImage() {
+        image.src = images[index];
+        texteImage.textContent = textes[index];
+        texteImage.style.display = "none";
+      }
+
+      document.getElementById("suivant").addEventListener("click", function () {
+        index = (index + 1) % images.length;
+        afficherImage();
+      });
+
+      document
+        .getElementById("precedent")
+        .addEventListener("click", function () {
+          index = (index - 1 + images.length) % images.length;
+          afficherImage();
+        });
+
+      image.addEventListener("mouseover", function () {
+        texteImage.style.display = "block";
+      });
+
+      image.addEventListener("mouseout", function () {
+        texteImage.style.display = "none";
+      });
+
+      afficherImage();
+
+      setInterval(function () {
+        index = Math.floor(Math.random() * images.length);
+        afficherImage();
+      }, 2000);
+    </script>
+  </body>
+</html>

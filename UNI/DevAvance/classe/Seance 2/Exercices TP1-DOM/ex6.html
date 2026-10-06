@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercice 6</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      #conteneur {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .boite {
+        width: 60px;
+        height: 60px;
+        border: 1px solid black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="conteneur">
+      <div class="boite">1</div>
+      <div class="boite">2</div>
+      <div class="boite">3</div>
+      <div class="boite">4</div>
+      <div class="boite">5</div>
+    </div>
+
+    <script>
+      function init() {
+        let boites = document.getElementsByClassName("boite");
+
+        for (let i = 0; i < boites.length; i++) {
+          boites[i].addEventListener("click", function () {
+            this.textContent = Number(this.textContent) + 1;
+          });
+        }
+      }
+
+      window.addEventListener("load", init);
+    </script>
+  </body>
+</html>

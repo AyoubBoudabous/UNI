@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercice 5</title>
+    <style>
+      h1 {
+        border: 1px solid black;
+        padding: 10px;
+      }
+
+      p {
+        border: 1px solid black;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="titre">Mon titre</h1>
+
+    <p id="paragraphe">Voici le mot original.</p>
+
+    <script>
+      function modif_paragraphe() {
+        var p = document.getElementById("paragraphe");
+        p.textContent = "Le mot a été modifié !";
+        p.style.fontStyle = "italic";
+      }
+
+      function centrage_h1() {
+        var h1List = document.getElementsByTagName("h1");
+        var h1 = h1List[0];
+        h1.setAttribute("align", "center");
+      }
+
+      document
+        .getElementById("titre")
+        .addEventListener("click", modif_paragraphe);
+      document
+        .getElementById("paragraphe")
+        .addEventListener("click", centrage_h1);
+    </script>
+  </body>
+</html>
