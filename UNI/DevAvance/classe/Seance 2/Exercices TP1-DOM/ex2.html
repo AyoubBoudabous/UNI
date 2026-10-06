@@ -6,7 +6,6 @@
     <title>Exercice 2</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
       }
@@ -14,7 +13,7 @@
       header,
       nav,
       footer {
-        border: 1px solid #000;
+        border: 1px solid black;
         padding: 10px;
       }
 
@@ -24,7 +23,6 @@
 
       nav {
         display: none;
-        background: #f2f2f2;
       }
 
       nav ul {
@@ -42,7 +40,7 @@
       }
 
       form {
-        border: 5px solid #f4a7c5;
+        border: 5px solid pink;
         padding: 15px;
         margin-bottom: 20px;
       }
@@ -62,13 +60,6 @@
         border: none;
         padding: 10px;
         cursor: pointer;
-      }
-
-      #passwordMessage,
-      #registerMessage,
-      #loginMessage {
-        min-height: 20px;
-        margin-top: 10px;
       }
 
       .error {
@@ -145,19 +136,19 @@
 
     <script>
       const validUsers = [
-        { login: "admin", password: "admin123" },
-        { login: "user1", password: "password1" },
+        { login: "admin", password: "admin" },
+        { login: "ayoub", password: "123" },
       ];
 
-      const newPasswordInput = document.getElementById("newPassword");
-      const confirmPasswordInput = document.getElementById("confirmPassword");
+      const newPass = document.getElementById("newPassword");
+      const confirmPass = document.getElementById("confirmPassword");
       const passwordMessage = document.getElementById("passwordMessage");
       const registerMessage = document.getElementById("registerMessage");
       const loginMessage = document.getElementById("loginMessage");
       const mainMenu = document.getElementById("mainMenu");
 
-      function checkPasswordRules() {
-        const value = newPasswordInput.value;
+      function checkPass() {
+        const value = newPass.value;
 
         if (value.length < 8) {
           passwordMessage.textContent =
@@ -166,16 +157,14 @@
           return false;
         }
 
-        if (!/^[A-Za-z]/.test(value)) {
+        const firstChar = value.charAt(0);
+        if (!isNaN(firstChar)) {
           passwordMessage.textContent = "Password must start with a letter.";
           passwordMessage.className = "error";
           return false;
         }
 
-        if (
-          confirmPasswordInput.value !== "" &&
-          confirmPasswordInput.value !== value
-        ) {
+        if (confirmPass.value != "" && confirmPass.value != value) {
           passwordMessage.textContent = "Passwords do not match.";
           passwordMessage.className = "error";
           return false;
@@ -186,53 +175,40 @@
         return true;
       }
 
-      newPasswordInput.addEventListener("input", checkPasswordRules);
-      confirmPasswordInput.addEventListener("input", checkPasswordRules);
+      newPass.addEventListener("input", checkPass);
+      confirmPass.addEventListener("input", checkPass);
 
       document
         .getElementById("registerForm")
         .addEventListener("submit", function (e) {
-          e.preventDefault();
-
           const newLogin = document.getElementById("newLogin").value.trim();
-          const password = newPasswordInput.value;
-          const confirm = confirmPasswordInput.value;
+          const password = newPass.value;
+          const confirm = confirmPass.value;
 
-          if (!newLogin) {
+          if (newLogin == "") {
             registerMessage.textContent = "Please enter a name.";
             registerMessage.className = "error";
-            return;
-          }
-
-          if (!checkPasswordRules()) {
+          } else if (!checkPass()) {
             registerMessage.textContent = "Please check the password rules.";
             registerMessage.className = "error";
-            return;
-          }
-
-          if (password !== confirm) {
+          } else if (password != confirm) {
             registerMessage.textContent = "Passwords do not match.";
             registerMessage.className = "error";
-            return;
+          } else {
+            validUsers.push({ login: newLogin, password: password });
+            registerMessage.textContent = "Registration successful!";
+            registerMessage.className = "success";
           }
-
-          validUsers.push({ login: newLogin, password: password });
-          registerMessage.textContent = "Registration successful!";
-          registerMessage.className = "success";
-          this.reset();
-          passwordMessage.textContent = "";
         });
 
       document
         .getElementById("loginForm")
         .addEventListener("submit", function (e) {
-          e.preventDefault();
-
           const login = document.getElementById("login").value.trim();
           const password = document.getElementById("password").value;
 
           const user = validUsers.find(
-            (u) => u.login === login && u.password === password,
+            (u) => u.login == login && u.password == password,
           );
 
           if (user) {

@@ -49,21 +49,17 @@
     <button id="suivant">Suivant</button>
 
     <script>
-      var images = [
-        "download.jpg",
-        "NUITETOILEE.jpeg",
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
-      ];
+      let images = ["download.jpg", "NUITETOILEE.jpeg", "images.jpg"];
 
-      var textes = [
+      let textes = [
         "boo",
-        "Un beau paysage naturel.",
-        "Une route au milieu de la nature.",
+        "Un beau paysage",
+        "Une route au milieu de la nature",
       ];
 
-      var index = 0;
-      var image = document.getElementById("image");
-      var texteImage = document.getElementById("texteImage");
+      let index = 0;
+      let image = document.getElementById("image");
+      let texteImage = document.getElementById("texteImage");
 
       function afficherImage() {
         image.src = images[index];

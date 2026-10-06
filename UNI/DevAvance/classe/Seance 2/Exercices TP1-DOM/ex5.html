@@ -19,27 +19,22 @@
   <body>
     <h1 id="titre">Mon titre</h1>
 
-    <p id="paragraphe">Voici le mot original.</p>
+    <p id="para">Voici le mot original</p>
 
     <script>
-      function modif_paragraphe() {
-        var p = document.getElementById("paragraphe");
+      function modif_p() {
+        let p = document.getElementById("para");
         p.textContent = "Le mot a été modifié !";
         p.style.fontStyle = "italic";
       }
 
-      function centrage_h1() {
-        var h1List = document.getElementsByTagName("h1");
-        var h1 = h1List[0];
-        h1.setAttribute("align", "center");
+      function center() {
+        let h1 = document.getElementsByTagName("h1");
+        h1[0].setAttribute("align", "center");
       }
 
-      document
-        .getElementById("titre")
-        .addEventListener("click", modif_paragraphe);
-      document
-        .getElementById("paragraphe")
-        .addEventListener("click", centrage_h1);
+      document.getElementById("titre").addEventListener("click", modif_p);
+      document.getElementById("para").addEventListener("click", center);
     </script>
   </body>
 </html>
