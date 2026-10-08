@@ -4,6 +4,7 @@
     <li>
       Nom : {{ training.name }} NbDays : {{ training.nbDays }}
       <input type="checkbox" name="" id="" [checked]="training.isFree" disabled /> Gratuit
+      <button (click)="onRemoveTraining(training.id)">Supprimer</button>
     </li>
   }
 </ul>
@@ -11,7 +12,11 @@
 <ul>
   @for (training of trainingCatalog(); track $index) {
     <li>
-      <app-training-item [training]="training" [position]="$index + 1"></app-training-item>
+      <app-training-item
+        [training]="training"
+        [position]="$index + 1"
+        (deleteTraining)="onRemoveTraining($event)"
+      />
     </li>
   }
 </ul>

@@ -23,4 +23,7 @@ export class TrainingList {
       { id: 10, name: 'Nouvelle formation', nbDays: 1, isFree: false },
     ]);
   }
+  onRemoveTraining(idTraining: number) {
+    this.trainingCatalog.update((formations) => formations.filter((f) => f.id !== idTraining));
+  }
 }

@@ -1,0 +1,13 @@
+img {
+  width: 100px;
+  height: 100px;
+}
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.vegetarian {
+  color: green;
+  font-weight: bold;
+}
