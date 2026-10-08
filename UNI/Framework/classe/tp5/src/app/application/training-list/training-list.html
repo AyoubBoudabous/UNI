@@ -1,0 +1,21 @@
+<h1>Liste des formations sans composants enfant</h1>
+<ul>
+  @for (training of trainingCatalog(); track $index) {
+    <li>
+      Nom : {{ training.name }} NbDays : {{ training.nbDays }}
+      <input type="checkbox" name="" id="" [checked]="training.isFree" disabled /> Gratuit
+    </li>
+  }
+</ul>
+<h2>Liste des formations avec composants enfant</h2>
+<ul>
+  @for (training of trainingCatalog(); track $index) {
+    <li>
+      <app-training-item [training]="training" [position]="$index + 1"></app-training-item>
+    </li>
+  }
+</ul>
+
+<button (click)="ajoutFormation()">Ajouter</button>
+<br />
+{{ trainingCatalog() | json }}
