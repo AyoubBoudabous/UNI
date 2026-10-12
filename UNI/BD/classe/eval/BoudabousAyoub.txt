@@ -1,0 +1,142 @@
+--q1
+connect system/system
+
+create user EvGA1 identified by EvGA1;
+
+grant DBA to EvGA1;
+
+disconnect:
+
+connect EvGA1/EvGA1;
+
+--q2
+create table developpeur (
+	NumDev char(4),
+	NomDev varchar(30) not null,
+	AdrDev varchar(30) not null,
+	EmailDev varchar(40),
+	TelDev char(8),
+	constraint NumDev_ck check ( NumDev like ('Dv%')) ,
+	constraint NomDev_ck check ( NomDev like ('%@%')) 
+);
+
+alter table developpeur add constraint numdev_pk primary key (NumDev);
+
+alter table developpeur drop constraint NomDev_ck;
+
+alter table developpeur add constraint EmailDev_ck check ( EmailDev like ('%@%'));
+
+create table projet (
+	NumProj char(4) primary key,
+	TitreProj varchar(30) not null,
+	DateDeb date
+);
+
+create table logiciel(
+	CodLog char(4) primary key ,
+	NomLog varchar(30) not null,
+	PrixLog int check (PrixLog >800),
+	NumProj char(4),
+	constraint numproj_fk foreign key (NumProj) references projet (NumProj)
+);
+
+create table realisation (
+	NumProj char(4),
+	NumDev char(4),
+	constraint num_pk primary key (NumProj,NumDev),
+	constraint numProj_fk2 foreign key (NumProj) references projet (NumProj),
+	constraint numDev_fk foreign key (NumDev) references developpeur (NumDev)
+);
+
+-q3
+insert into developpeur values ('Dv01','Ben Mahmoud','Tunis','BM@gmail.com',24111222);
+
+insert into developpeur values ('Dv02','Kallel','Sfax','KallelA@gmail.com',98777666);
+
+
+insert into developpeur values ('Dv03','Salami','Tunis','SalamiS@gmail.com',53202020);
+
+insert into developpeur (NumDev,NomDev,AdrDev,EmailDev) values ('Dv0','Mejri','Nabeul','MejriMed@gmail.com');
+
+--error d'orthographe dans la derniere insert corrigé lors de l'insertion du table reaslisation
+
+-q4
+alter table projet modify TitreProj varchar(10) unique;
+
+-q5
+alter session set nls_date_format = 'DD/MM/YYYY';
+
+insert into projet values('P001','CodPlus','13/01/2027');
+
+insert into projet values('P002','InfoDev','15/09/2026');
+
+insert into projet values('P003','Prog+','31/12/2025');
+
+insert into projet values('P004','DevGo','28/02/2027');
+
+-q6
+insert into logiciel values ('Lg01' ,'Logiciel1',1200,'P001');
+
+insert into logiciel values ('Lg02' ,'Logiciel2',1000,'P001');
+
+insert into logiciel values ('Lg03' ,'Logiciel3',925,'P002');
+
+-q7
+update developpeur set NumDev = 'Dv04' where NumDev = 'Dv0';
+
+insert into realisation values ('P001','Dv01');
+
+insert into realisation values ('P001','Dv02');
+
+insert into realisation values ('P002','Dv01');
+
+insert into realisation values ('P002','Dv04');
+
+insert into realisation values ('P002','Dv03');
+
+-q8
+update developpeur set TelDev = 23001002 where NumDev = 'Dv04';
+
+-q9
+alter table projet add DateFin date;
+
+-q10
+alter table projet add constraint date_ck check (DateFin > DateDeb);
+
+-q11
+update projet set DateFin = '13/10/2028' where NumProj = 'P001';
+
+update projet set DateFin = '15/03/2028' where NumProj = 'P002';
+
+update projet set DateFin = '31/12/2027' where NumProj = 'P003';
+
+update projet set DateFin = '28/10/2028' where NumProj = 'P004';
+
+-q12
+update Logiciel set PrixLog = PrixLog + PrixLog * 0.2 where NumProj = 'P001' AND PrixLog < 1100;
+
+-q13
+commit;
+
+-q14
+create table ProjetAvenir (
+	NumProj char(4) primary key,
+	TitreProj varchar(30) not null,
+	DateDeb date,
+	DateFin date
+);
+
+alter table ProjetAvenir modify TitreProj varchar(10) unique;
+
+-q15
+insert into projetAvenir 
+(select* from projet 
+where extract (year from sysdate)+1 = extract(year from dateFin));
+
+-q16
+delete from projet where extract(year from DateDeb) - extract(year from sysdate) = 1;
+
+-q17
+rollback;
+
+
