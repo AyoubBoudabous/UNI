@@ -158,13 +158,13 @@
         }
 
         const firstChar = value.charAt(0);
-        if (!isNaN(firstChar)) {
+        if (!/^[A-Za-z]/.test(value)) {
           passwordMessage.textContent = "Password must start with a letter.";
           passwordMessage.className = "error";
           return false;
         }
 
-        if (confirmPass.value != "" && confirmPass.value != value) {
+        if (confirmPass.value !== "" && confirmPass.value !== value) {
           passwordMessage.textContent = "Passwords do not match.";
           passwordMessage.className = "error";
           return false;
@@ -181,17 +181,19 @@
       document
         .getElementById("registerForm")
         .addEventListener("submit", function (e) {
+          e.preventDefault();
+
           const newLogin = document.getElementById("newLogin").value.trim();
           const password = newPass.value;
           const confirm = confirmPass.value;
 
-          if (newLogin == "") {
+          if (newLogin === "") {
             registerMessage.textContent = "Please enter a name.";
             registerMessage.className = "error";
           } else if (!checkPass()) {
             registerMessage.textContent = "Please check the password rules.";
             registerMessage.className = "error";
-          } else if (password != confirm) {
+          } else if (password !== confirm) {
             registerMessage.textContent = "Passwords do not match.";
             registerMessage.className = "error";
           } else {
@@ -204,11 +206,13 @@
       document
         .getElementById("loginForm")
         .addEventListener("submit", function (e) {
+          e.preventDefault();
+
           const login = document.getElementById("login").value.trim();
           const password = document.getElementById("password").value;
 
           const user = validUsers.find(
-            (u) => u.login == login && u.password == password,
+            (u) => u.login === login && u.password === password,
           );
 
           if (user) {

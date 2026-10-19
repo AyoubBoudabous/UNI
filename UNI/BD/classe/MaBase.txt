@@ -10,7 +10,7 @@ create table employe (
 	Nom varchar(20) not null,
 	Prenom varchar(20) not null,
 	Date_N date,
-	Depart varchar(6),
+	Depart char(6),
 	Adresse varchar(10),
 	sal_brut int,
 	charge_sociale int default 0,
@@ -34,7 +34,7 @@ create table Role (
 	NumE varchar(6),
 	NumP varchar(4),
 	Role_emp varchar(20),
-	constraint role_ck check (Role_emp in ('Responsable','Ing'||char(14844058)||nieur','Technicien')),
+	constraint role_ck check (Role_emp in ('Responsable','Ing'||char(14844058)||'nieur','Technicien')),
 	constraint role_pk primary key (NumE,NumP),
 	constraint numE_fk foreign key (NumE) references employe (Matricule) on delete cascade ,
 	constraint numP_fk foreign key (NumP) references Projet (Numero) on delete cascade 

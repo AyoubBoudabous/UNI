@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>AUDIO</title>
+  
+</head>
+<body>
+
+  <audio controls="controls">
+  <source src="bolero.mp3" type="audio/mp3"/>
+  </audio>
+
+
+<script>
+  
+  function lecture() {
+// Lit la vidéo
+lecteur.play();
+}
+function pause() {
+// Met la vidéo en pause
+lecteur.pause();
+}
+function stop() {
+// Arrête la vidéo
+// On met en pause
+lecteur.pause();
+// Et on se remet au départ
+lecteur.currentTime = 0;
+}
+function avancer(duree) {
+// Avance de 'duree' secondes
+// On parse en entier pour être sûr d'avoir un nombre
+lecteur.currentTime += parseInt(duree);
+}
+function reculer(duree) {
+// Recule de 'duree' secondes
+// On parse en entier pour être sûr d'avoir un nombre
+lecteur.currentTime -= parseInt(duree);
+</script>
+
+</body>
+</html>
+

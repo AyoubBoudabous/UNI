@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      img {
+        width: 200px;
+        height: 200px;
+      }
+      main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        text-align: center;
+        font-family: cursive;
+      }
+      main div {
+        margin: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+      }
+      div p {
+        margin: 10px;
+        text-align: center;
+        background-color: yellow;
+      }
+      .blurred {
+        filter: blur(5px);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>My Website</h1>
+    </header>
+    <main>
+      <div>
+        <legend>Canari</legend>
+        <img src="canari.jpg" alt="" />
+        <p hidden>The canary sings.</p>
+        <audio
+          src="ressources/audio-video/sons/freesound_community-canaryartie-4-91529.mp3"
+        ></audio>
+      </div>
+      <div>
+        <legend>chien</legend>
+        <img src="dog.jpg" alt="" />
+        <p hidden>The dog barks.</p>
+        <audio src="ressources/audio-video/sons/chien.wav"></audio>
+      </div>
+      <div>
+        <legend>Chat</legend>
+        <img src="images.jpg" alt="" />
+        <p hidden>The cat meows.</p>
+        <audio src="ressources/audio-video/sons/chatons.mp3"></audio>
+      </div>
+      <div>
+        <legend>lion</legend>
+        <img src="lion.jpg" alt="" />
+        <p hidden>The lion roars.</p>
+        <audio src="ressources/audio-video/sons/lion.ogg"></audio>
+      </div>
+      <div>
+        <legend>perroquet</legend>
+        <img src="ressources/perroquet.jfif " alt="" />
+        <p hidden>The parrot squawks.</p>
+        <audio src="ressources/audio-video/sons/parrot.mp3"></audio>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2024 My Website</p>
+    </footer>
+    <script>
+      const images = document.querySelectorAll("img");
+      const legends = document.querySelectorAll("legend");
+      const audios = document.querySelectorAll("audio");
+      const text = document.querySelectorAll("p");
+
+      images.forEach((image, index) => {
+        image.addEventListener("click", () => {
+          audios[index].play();
+          image.classList.toggle("blurred");
+          text[index].hidden = false;
+        });
+        image.addEventListener("mouseout", () => {
+          text[index].hidden = true;
+          image.classList.remove("blurred");
+          audios[index].pause();
+          audios[index].currentTime = 0;
+        });
+      });
+      legends.forEach((legend, index) => {
+        legend.addEventListener("click", () => {
+          audios[index].play();
+          text[index].hidden = false;
+        });
+      });
+    </script>
+  </body>
+</html>

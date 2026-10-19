@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercice 1 - Lecture / Pause Vidéo</title>
+</head>
+<body>
+
+  <h2>Lecture / Pause Vidéo</h2>
+  <video id="myVideo" width="600" controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+  <br>
+  <button id="playBtn">Lecture</button>
+  <button id="pauseBtn">Pause</button>
+
+  <script>
+    const video = document.getElementById('myVideo');
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+
+    playBtn.addEventListener('click', () => video.play());
+    pauseBtn.addEventListener('click', () => video.pause());
+  </script>
+
+</body>
+</html>

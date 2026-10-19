@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        display: grid;
+        gap: 24px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .container > div {
+        padding: 18px;
+        background: #fff;
+        border: 1px solid white;
+        border-radius: 14px;
+      }
+
+      video {
+        display: block;
+        width: 100%;
+        border-radius: 9px;
+      }
+
+      input {
+        display: block;
+        width: 360px;
+        height: 45px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        padding: 0 14px;
+        border: 1px solid;
+        border-radius: 10px;
+      }
+
+      button {
+        margin: 14px 8px 0 0;
+        padding: 9px 15px;
+        color: red;
+        background: white;
+        border-color: red;
+        border-radius: 20px;
+        cursor: pointer;
+        width: 100px;
+        height: 45px;
+        font-size: large;
+      }
+
+      button:hover {
+        background: red;
+        color: white;
+      }
+      .btn {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <p>tentatif = <span></span></p>
+        <video
+          src="ressources/audio-video/videos/chien.mp4"
+          name="chien"
+        ></video>
+        <input type="text" placeholder="Saisissez le titre de la vidéo" />
+        <div class="btn">
+          <button type="button">arrêt</button>
+          <button type="button">pause</button>
+          <button type="button">continuer</button>
+          <button type="button">valider</button>
+        </div>
+      </div>
+      <div>
+        <video src="ressources/audio-video/videos/The_Guardian.mp4"></video>
+        <input type="text" placeholder="Saisissez le titre de la vidéo" />
+        <div class="btn">
+          <button type="button">arrêt</button>
+          <button type="button">pause</button>
+          <button type="button">continuer</button>
+        </div>
+      </div>
+      <div>
+        <video src="ressources/video.mp4"></video>
+        <input type="text" placeholder="Saisissez le titre de la vidéo" />
+        <div class="btn">
+          <button type="button">arrêt</button>
+          <button type="button">pause</button>
+          <button type="button">continuer</button>
+        </div>
+      </div>
+      <audio src="ressources/aplause.mp3"></audio>
+    </div>
+    <script>
+      document.querySelectorAll(".container > div").forEach((card) => {
+        const video = card.querySelector("video");
+        const buttons = card.querySelectorAll("button");
+        const input = card.querySelector("input").value;
+        const span = card.querySelector("span");
+
+        buttons[0].addEventListener("click", () => {
+          video.pause();
+          video.currentTime = 0;
+        });
+
+        buttons[1].addEventListener("click", () => {
+          video.pause();
+        });
+
+        buttons[2].addEventListener("click", () => {
+          video.play();
+        });
+
+        buttons[3].addEventListener("click", () => {
+          const audio = document.querySelector("audio");
+          let tent = 5;
+          let test = false;
+          while (tent < 0 && test == false) {
+            span.textContent += tent;
+            if (video.tagName != input) {
+              tent--;
+            } else {
+              test = true;
+            }
+          }
+          if (test) {
+            audio.play;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

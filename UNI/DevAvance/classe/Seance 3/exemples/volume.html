@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercice 2 - Volume</title>
+</head>
+<body>
+
+  <h2>Contrôle du Volume</h2>
+  <video id="myVideo" width="600" controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+  <br>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+  <button id="muteBtn">Mute / Unmute</button>
+
+  <script>
+    const video = document.getElementById('myVideo');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const muteBtn = document.getElementById('muteBtn');
+
+    volumeSlider.addEventListener('input', () => {
+      video.volume = volumeSlider.value;
+    });
+
+    muteBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+    });
+  </script>
+
+</body>
+</html>

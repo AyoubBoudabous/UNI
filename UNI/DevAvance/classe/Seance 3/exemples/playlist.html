@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercice 4 - Playlist Audio</title>
+</head>
+<body>
+
+  <h2>Playlist Audio</h2>
+  <audio id="myAudio" controls></audio>
+  <br>
+  <button id="prevBtn">Précédent</button>
+  <button id="nextBtn">Suivant</button>
+
+  <script>
+    const audio = document.getElementById('myAudio');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    const playlist = ['audio1.mp3', 'audio2.ogg', 'audio3.mp3']; // à adapter
+    let currentTrack = 0;
+
+    function loadTrack(index) {
+      audio.src = playlist[index];
+      audio.play();
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrack);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      loadTrack(currentTrack);
+    });
+
+    loadTrack(currentTrack);
+  </script>
+
+</body>
+</html>

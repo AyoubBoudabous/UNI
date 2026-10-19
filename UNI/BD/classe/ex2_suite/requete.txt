@@ -1,0 +1,189 @@
+connect system/system
+
+alter session
+set nls_date_format = 'DD/MM/YYYY';
+
+CREATE USER ex identified by exercice;
+
+grant DBA to ex; 
+
+connect ex/exercice
+
+1)
+select * from projet;
+
+2) 
+select nom,prenom from employe;
+
+3)
+select nom, prenom from employe where adresse = 'Paris';
+
+4)
+select * from employe where extract(year from date_n) = 1985;
+
+5)
+select * from projet where extract(year from date_debut) = 2023;
+
+6)
+select e.nom, apellation
+from employe e , departement d
+where e.depart = d.numdept;
+
+7)
+select nom, prenom
+from employe e, departement d
+where e.depart = d.numdept and d.apellation = 'BIO';
+
+8)
+select e.nom, p.designation, r.role_emp
+from employe e , role r , projet p 
+where e.matricule = r.nume
+and r.nump = p.numero;
+
+9) 1-
+select p.designation
+from projet p , role r
+where p.numero = r.nump
+and r.nume = 'Emp001'
+order by p.budget desc;
+2-
+select p.designation
+from projet p , role r , employe e 
+where p.numero = r.nump
+and r.nume = e.matricule
+and e.nom = 'Miller'
+order by p.budget desc;
+
+10)
+select sum(p.budget) as budget_total
+from projet p , role r
+where p.numero = r.nump
+and r.nume = 'Emp001';
+
+11)
+select avg(p.budget) as budget_moyen
+from projet p , role r
+where  p.numero = r.nump
+and r.nume = 'Emp001';
+
+12)
+select count(*) as nb_employes
+from employe;
+
+13)
+select count(*) as nb_employes
+from employe e , departement d 
+where e.depart = d.numdept
+and d.apellation = 'N-TECH';
+
+14)
+select d.apellation, count(e.matricule) as nb_employes
+from departement d , employe e 
+where e.depart = d.numdept
+group by d.apellation;
+
+15)
+select p.designation, count(r.nume) as nb_employes
+from projet p , role r 
+where r.nump = p.numero
+group by p.designation
+order by nb_employes asc;
+
+16)
+select designation
+from projet
+where budget = (select max(budget) from projet);
+
+17)
+select d.apellation
+from departement d , employe e
+where d.numDept = e.depart
+group by d.apellation
+having count(e.matricule) = (
+  select min(count(e2.matricule))
+  from departement d2 , employe e2
+  where d2.numDept = e2.depart
+  group by d2.numdept
+);
+
+18)
+select p.designation
+from projet p , role r
+where r.nump = p.numero
+and r.role_emp = 'Technicien'
+group by p.designation
+having count(r.nume) = (
+  select max(count(nume))
+  from role
+  where role_emp = 'Technicien'
+  group by nump
+);
+
+19)
+select * 
+from projet
+where budget > (
+	select budget 
+	from projet p , employe e , role r 
+	where p.numero = r.numP 
+	and e.matricule = r.numE 
+	and e.matricule = 'Emp004'
+);
+
+20)
+select p.numero, p.designation
+from projet p , role r 
+where r.nump = p.numero
+and r.role_emp <> 'Responsable'
+group by p.numero, p.designation
+having count(r.nume) >= 2;
+
+21)
+-1-
+select nom, prenom
+from employe
+where matricule not in (select nume from role);
+
+-2-
+select e.nom, e.prenom
+from employe e
+where not exists (
+  select r.nume
+  from role r
+  where r.nume = e.matricule
+);
+
+-3-
+select nom, prenom
+from employe
+where matricule in (
+  select matricule from employe
+  minus
+  select nume from role
+);
+
+22)
+select date_fin - date_debut AS jour
+from projet;
+
+23)
+select numero , designation
+from projet
+where date_fin - date_debut = (select Max(date_fin - date_debut) from projet);
+
+24)
+select matricule, nom, prenom, (extract(year from sysdate) - extract(year from date_n)) as age
+from employe;
+
+25)
+select e.matricule, e.nom, e.prenom, d.numdept
+from employe e , departement d
+where e.depart = d.numdept
+and extract(year from sysdate) - extract(year from date_n) in (
+select MIN(extract(year from sysdate) - extract(year from date_n)) from employe)
+group by e.matricule, e.nom, e.prenom, d.numdept;
+
+26)
+select matricule, nom, prenom
+from employe
+where sal_brut
