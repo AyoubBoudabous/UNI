@@ -1,0 +1,103 @@
+create table departement(
+	NumDept char(6) primary key,
+	Appellation varchar(6),
+	Constraint app_ck check (Appellation in ('BIO','SCENV','N-TECH'))
+);
+	
+create table employe (
+	Matricule char(6) primary key,
+	Nom varchar(20) not null,
+	Prenom varchar(20) not null,
+	Date_N date,
+	Depart char(6),
+	Adresse varchar(10) check (Adresse in ('Paris', 'Rennes', 'Marseille', 'Lyon', 'Strasbourg', 'Bordeaux', 'Lille', 'Toulouse', 'Toulon')),
+	sal_brut int check (sal_brut > 1000),
+	charge_sociale int default 0,
+	prime int default 0,
+	retenue int default 0
+);
+
+ alter table employe
+ add constraint depart_fk foreign key (Depart) references departement (NumDept);
+
+create table Projet (
+	Numero char(4) primary key,
+	Designation varchar(10),
+	Budget int,
+	date_debut date,
+	date_fin date,
+	constraint date_ck check (date_debut < date_fin)
+);
+
+
+select ASCII('é') from dual;
+
+create table Role (
+	NumE char(6) ,
+	NumP char(4) ,
+	Role_Emp varchar(20) check (Role_Emp in ('Responsable', 'Ing'||chr(14844058)||'nieur', 'Technicien')),
+	constraint num_pk primary key (NumE,NumP),
+	constraint numE_fk foreign key (NumE) references employe (Matricule),
+	constraint numP_fk foreign key (NumP) references Projet (Numero)
+);	
+	
+
+alter table departement
+add directeur varchar(50);
+
+insert into departement values('DEPT01','BIO','Jean Miller');
+insert into departement values('DEPT02','SCENV','Alain Bernard');
+insert into departement values('DEPT03','N-TECH','Sophie Robert');
+
+
+INSERT INTO EMPLOYE VALUES ('Emp001', 'Miller', 'François', '18/06/1979', 'DEPT01', 'Paris', 3000, 300, 300, 30);
+
+INSERT INTO EMPLOYE VALUES ('Emp002', 'Le blanc', 'Gisèle', '31/10/1982', 'DEPT02', 'Lyon', 3000, 150, 250, 0);
+
+INSERT INTO EMPLOYE VALUES ('Emp003', 'Marchal', 'Alain', '21/12/1981', 'DEPT01', 'Rennes', 2500, 0, 250, 0);
+
+INSERT INTO EMPLOYE VALUES ('Emp004', 'Deschamps', 'Sarah', '02/04/1985', 'DEPT03', 'Marseille', 3000, 250, 300, 20);
+
+INSERT INTO EMPLOYE VALUES ('Emp005', 'Dédier', 'Julien', '13/11/1985', 'DEPT02', 'Paris', 1500, 100, 100, 0);
+
+INSERT INTO EMPLOYE VALUES ('Emp006', 'Vernier', 'Elodie', '09/09/1978', 'DEPT01', 'Paris', 1500, 100, 100, 0);
+
+INSERT INTO EMPLOYE VALUES ('Emp007', 'Bern', 'Sébastien', '21/10/1989', 'DEPT03', 'Marseille', 1500, 100, 100, 0);
+
+INSERT INTO EMPLOYE VALUES ('Emp008', 'Bégert', 'Pierre', '02/08/1984', 'DEPT02', 'Lyon', 1500, 100, 100, 50);
+
+INSERT INTO EMPLOYE VALUES ('Emp009', 'Dupont', 'Alex', '10/10/1974', 'DEPT01', 'Lille', 1200, 50, 0, 0);
+
+COMMIT;
+
+insert into projet (Numero,Designation,Budget) values ('PR01','OPTOPATH','6000000');
+insert into projet (Numero,Designation,Budget) values ('PR02','EcoX','12500000');
+insert into projet (Numero,Designation,Budget) values ('PR03','TEMPOS','10500000');
+insert into projet (Numero,Designation,Budget) values ('PR04','ECOSPHER','10000000');
+
+insert into Role values('Emp001','PR01','Responsable');
+insert into Role values('Emp003','PR01','Ing'||chr(14844058)||'nieur');
+insert into Role values('Emp001','PR02','Ing'||chr(14844058)||'nieur');
+insert into Role values('Emp002','PR02','Responsable');
+insert into Role values('Emp006','PR02','Technicien');
+insert into Role values('Emp005','PR02','Technicien');
+insert into Role values('Emp004','PR03','Responsable');
+insert into Role values('Emp007','PR03','Technicien');
+
+alter table departement 
+add telephone char(8);
+
+update departement set Telephone = '33102030' where Numdept = 'DEPT01';
+update departement set Telephone = '33252423' where Numdept = 'DEPT02';
+update departement set Telephone = '33141315' where Numdept = 'DEPT03';
+
+delete from employe where Date_N < '01/01/1975';
+
+update employe set prime = prime + prime * 0.1 where 2026 - extract(year from Date_N) >= 50;
+
+commit;
+
+update employe set sal_brut = sal_brut * 0.95 where Adresse = 'Paris';
+
+delete from employe where (sal_brut + prime - charge_sociale - retenue) < 2000;
+

@@ -1,0 +1,16 @@
+<h1>Liste des formations sans composants enffant</h1>
+<ul>
+  @for (training of trainingCatalog(); track $index) {
+    <li>
+      <app-training-item
+        [training]="training"
+        [position]="$index + 1"
+        (deleteTraining)="onRemoveTraining($event)"
+      ></app-training-item>
+    </li>
+  }
+  <button (click)="addition()">ajouter</button>
+  {{
+    trainingCatalog() | json
+  }}
+</ul>

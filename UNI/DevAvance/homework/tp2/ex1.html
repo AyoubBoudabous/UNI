@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        width: 300px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      @keyframes random {
+        0% {
+          background-color: red;
+          transform: rotate(0deg);
+        }
+        25% {
+          background-color: blue;
+          transform: rotate(90deg);
+        }
+        50% {
+          background-color: green;
+          transform: rotate(180deg);
+        }
+        75% {
+          background-color: yellow;
+          transform: rotate(270deg);
+        }
+        100% {
+          background-color: red;
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+      voluptatum.
+    </div>
+    <button id="changeColor">Changer la couleur</button>
+    <button id="changeSize">Changer la taille</button>
+    <button id="addBorder">Ajouter une bordure</button>
+    <button id="removeBorder">Supprimer la bordure</button>
+    <button id="addDropShadow">Ajouter une ombre portée</button>
+    <button id="randomStyles">Styles aléatoires</button>
+    <button id="resetStyles">Réinitialiser les styles</button>
+    <script>
+      let div = document.getElementById("box");
+      let changeColorButton = document.getElementById("changeColor");
+      let changeSizeButton = document.getElementById("changeSize");
+      let addBorderButton = document.getElementById("addBorder");
+      let removeBorderButton = document.getElementById("removeBorder");
+      let addDropShadowButton = document.getElementById("addDropShadow");
+      let randomStylesButton = document.getElementById("randomStyles");
+      let resetStylesButton = document.getElementById("resetStyles");
+      let timer = null;
+
+      function applyRandomStyle() {
+        const styles = [
+          ["linear-gradient(red, yellow)", "1.5rem", "2px solid black", ""],
+          ["linear-gradient(blue, cyan)", "2rem", "3px dashed green", ""],
+          ["linear-gradient(green, lime)", "1.8rem", "2px solid orange", ""],
+          [
+            "linear-gradient(purple, pink)",
+            "2.2rem",
+            "",
+            "drop-shadow(20px 10px 4px black)",
+          ],
+          ["linear-gradient(black, gray)", "1.2rem", "none", ""],
+        ];
+
+        const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+        div.style.backgroundImage = randomStyle[0];
+        div.style.fontSize = randomStyle[1];
+        div.style.border = randomStyle[2];
+        div.style.filter = randomStyle[3];
+      }
+
+      changeColorButton.addEventListener("click", function () {
+        div.style.backgroundImage = "linear-gradient(red, yellow)";
+      });
+
+      changeSizeButton.addEventListener("click", function () {
+        div.style.fontSize = "2rem";
+      });
+
+      addBorderButton.addEventListener("click", function () {
+        div.style.border = "2px solid black";
+      });
+
+      removeBorderButton.addEventListener("click", function () {
+        div.style.border = "none";
+      });
+
+      addDropShadowButton.addEventListener("click", function () {
+        div.style.filter = "drop-shadow(30px 10px 4px black)";
+      });
+
+      randomStylesButton.addEventListener("click", function () {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+          return;
+        }
+
+        applyRandomStyle();
+        timer = setInterval(applyRandomStyle, 2000);
+      });
+
+      resetStylesButton.addEventListener("click", function () {
+        div.removeAttribute("style");
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      });
+    </script>
+  </body>
+</html>
