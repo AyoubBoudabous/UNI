@@ -1,1 +1,5 @@
-<p>product-list works!</p>
+<ul>
+  @for (p of product(); track p.id) {
+    <li>{{ p.id }} -- {{ p.name }}<a [routerLink]="['/products', p.id]">Details</a></li>
+  }
+</ul>

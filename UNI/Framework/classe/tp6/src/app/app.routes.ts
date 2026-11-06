@@ -5,6 +5,7 @@ import { Contact } from './components/contact/contact';
 import { Error404 } from './components/error404/error404';
 import { Presentation } from './components/presentation/presentation';
 import { Info } from './components/info/info';
+import { ProductSelected } from './components/product-selected/product-selected';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,7 @@ export const routes: Routes = [
   },
   { path: 'products', title: 'Produits', component: ProductList },
   { path: 'contact', title: 'Contact', component: Contact },
+  { path: 'products/:idP', title: 'Produit selectione', component: ProductSelected },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', title: 'Erreur', component: Error404 },
 ];

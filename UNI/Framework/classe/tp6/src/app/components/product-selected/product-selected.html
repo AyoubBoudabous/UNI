@@ -1,0 +1,6 @@
+@if (product()) {
+  <p>{{ product() | json }}</p>
+} @else {
+  <p>Le produit n'existe pas.</p>
+}
+<button (click)="onBackToProducts()">Retour</button>

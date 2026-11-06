@@ -55,10 +55,16 @@ and e.nom = 'Miller'
 order by p.budget desc;
 
 10)
-select sum(p.budget) as budget_total
+select sum(p.budget) as total_budget
 from projet p , role r
 where p.numero = r.nump
 and r.nume = 'Emp001';
+--"nom"
+select nume, sum(budget)
+from projet, employe , role
+where joint1 and joint2 and 
+nom = 'Miller' 
+group by nume;
 
 11)
 select avg(p.budget) as budget_moyen
@@ -90,7 +96,7 @@ group by p.designation
 order by nb_employes asc;
 
 16)
-select designation
+select budget, designation as desi
 from projet
 where budget = (select max(budget) from projet);
 
@@ -99,8 +105,8 @@ select d.apellation
 from departement d , employe e
 where d.numDept = e.depart
 group by d.apellation
-having count(e.matricule) = (
-  select min(count(e2.matricule))
+having count(*) = (
+  select min(count(*))
   from departement d2 , employe e2
   where d2.numDept = e2.depart
   group by d2.numdept
@@ -112,8 +118,8 @@ from projet p , role r
 where r.nump = p.numero
 and r.role_emp = 'Technicien'
 group by p.designation
-having count(r.nume) = (
-  select max(count(nume))
+having count(*) = (
+  select max(count(*))
   from role
   where role_emp = 'Technicien'
   group by nump
@@ -131,12 +137,12 @@ where budget > (
 );
 
 20)
-select p.numero, p.designation
+select p.numero, p.designation , budget, date_debut, date_fin, count(*) as nb_projet
 from projet p , role r 
 where r.nump = p.numero
 and r.role_emp <> 'Responsable'
-group by p.numero, p.designation
-having count(r.nume) >= 2;
+group by p.numero, p.designation ,  budget, date_debut, date_fin
+having count(*) >= 2;
 
 21)
 -1-
@@ -154,7 +160,15 @@ where not exists (
 );
 
 -3-
-select nom, prenom
+select *
+from employe
+minus
+select e.*
+from employe e , role 
+where nume = matricule;
+
+-3-
+select *
 from employe
 where matricule in (
   select matricule from employe
@@ -163,11 +177,11 @@ where matricule in (
 );
 
 22)
-select date_fin - date_debut AS jour
+select numero, designation, date_fin - date_debut AS jour
 from projet;
 
 23)
-select numero , designation
+select *
 from projet
 where date_fin - date_debut = (select Max(date_fin - date_debut) from projet);
 
@@ -187,3 +201,10 @@ group by e.matricule, e.nom, e.prenom, d.numdept;
 select matricule, nom, prenom
 from employe
 where sal_brut
+
+set linesize 500;
+
+
+
+
+
